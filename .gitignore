@@ -10,3 +10,6 @@ target/
 
 # Allure
 .allure
+.exe
+.war
+.jar
