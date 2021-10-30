@@ -1,0 +1,15 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.idea/
+*.iml
+
+# Maven
+logs/
+target/
+
+# Allure
+.allure
+.exe
+.war
+.jar
