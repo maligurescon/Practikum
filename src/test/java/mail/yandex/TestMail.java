@@ -46,15 +46,11 @@ public class TestMail {
         loginPage.clickSubmit();
         mailPage.filterMail.sendKeys("Simbirsoft theme");
         mailPage.filterMail.submit();
+        mailPage.sortMail();
         int beforeSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
         Boolean runCycle = true;
         var startTime = new Date().getTime();
-        while(runCycle) {
-            mailPage.filterMail.clear();
-            mailPage.filterMail.submit();
-            mailPage.filterMail.sendKeys("Simbirsoft theme");
-            mailPage.filterMail.submit();
-            mailPage.sortMail();
+        while(runCycle) {           
             int currentSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
             if((new Date().getTime() - startTime) < 30 || currentSize != beforeSize ) {
                 runCycle = false;
@@ -71,14 +67,10 @@ public class TestMail {
         mailPage.setReturnBack();
         mailPage.filterMail.sendKeys("Simbirsoft theme");
         mailPage.filterMail.submit();
+        mail.Page.sortMail();
         int afterSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
         runCycle = true;
         while(runCycle) {
-            mailPage.filterMail.clear();
-            mailPage.filterMail.submit();
-            mailPage.filterMail.sendKeys("Simbirsoft theme");
-            mailPage.filterMail.submit();
-            mailPage.sortMail();
             int currentSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
             if((new Date().getTime() - startTime) < 30 || currentSize != afterSize ) {
                 runCycle = false;
