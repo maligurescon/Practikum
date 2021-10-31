@@ -19,6 +19,8 @@ public class TestMail {
     public static MailPage mailPage;
     public static WebDriver driver;
     static String theme = "Simbirsoft theme";
+    static Integer beforeSize;
+    static Integer afterSize;
 
     @Before
     public void setup() {
@@ -38,27 +40,28 @@ public class TestMail {
         driver = new RemoteWebDriver(new URL(Node), caps);
     }
 
+
     @Test
     public void sendingMessage() throws InterruptedException {
-        loginPage.cliclMail();
-        loginPage.inputLogin();
-        loginPage.clickSubmit();
-        loginPage.inputPassword();
-        loginPage.clickSubmit();
-        mailPage.fiterByTheme(theme);
-        mailPage.sortMail();
-        var beforeSize = mailPage.getNumSize();
-        mailPage.clickNew();
-        mailPage.sendAddress();
-        mailPage.sendTheme(theme);
-        mailPage.sendText("Найдено ");
-        mailPage.sendMessage();
+        loginPage.cliclMail()
+                .inputLogin(PropertyManager.getInstance().getAddressmail())
+                .clickSubmit()
+                .inputPassword(PropertyManager.getInstance().getPassword())
+                .clickSubmit();
+        mailPage.fiterByTheme(theme)
+                .sortMail();
+        beforeSize = mailPage.getNumSize();
+        mailPage.clickNew()
+                .sendAddress()
+                .sendTheme(theme)
+                .sendText("Найдено ")
+                .sendMessage()
 
         //Проверка изменения числа входящих писем на единицу
-        mailPage.setReturnBack();
-        mailPage.fiterByTheme("Simbirsoft theme");
-        mailPage.sortMail();
-        var afterSize = mailPage.getNumSize();
+                .setReturnBack()
+                .fiterByTheme("Simbirsoft theme")
+                .sortMail();
+        afterSize = mailPage.getNumSize();
         beforeSize ++;
         Assert.assertEquals("Счетчик не совпадает", afterSize, beforeSize);
     }
