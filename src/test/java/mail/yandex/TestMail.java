@@ -50,6 +50,7 @@ public class TestMail {
                 .clickSubmit();
         mailPage.fiterByTheme(theme)
                 .sortMail();
+        Thread.sleep(1000);
         beforeSize = mailPage.getNumSize();
         mailPage.clickNew()
                 .sendAddress()
@@ -61,6 +62,7 @@ public class TestMail {
                 .setReturnBack()
                 .fiterByTheme("Simbirsoft theme")
                 .sortMail();
+        Thread.sleep(1000);
         afterSize = mailPage.getNumSize();
         beforeSize ++;
         Assert.assertEquals("Счетчик не совпадает", afterSize, beforeSize);
