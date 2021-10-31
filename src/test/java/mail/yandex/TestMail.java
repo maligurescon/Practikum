@@ -61,8 +61,8 @@ public class TestMail {
                 .setReturnBack()
                 .fiterByTheme("Simbirsoft theme")
                 .sortMail();
-        afterSize = mailPage.getNumSize();
         beforeSize ++;
+        afterSize = mailPage.getNumSize();
         Assert.assertEquals("Счетчик не совпадает", afterSize, beforeSize);
     }
 
