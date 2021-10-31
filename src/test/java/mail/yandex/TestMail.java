@@ -48,8 +48,7 @@ public class TestMail {
                 .clickSubmit()
                 .inputPassword(PropertyManager.getInstance().getPassword())
                 .clickSubmit();
-        mailPage.fiterByTheme(theme)
-                .sortMail();
+        mailPage.fiterByTheme("Simbirsoft theme папка:Входящие");
         beforeSize = mailPage.getNumSize();
         mailPage.clickNew()
                 .sendAddress()
@@ -59,8 +58,7 @@ public class TestMail {
 
         //Проверка изменения числа входящих писем на единицу
                 .setReturnBack()
-                .fiterByTheme("Simbirsoft theme")
-                .sortMail();
+                .fiterByTheme("Simbirsoft theme папка:Входящие");
         beforeSize ++;
         afterSize = mailPage.getNumSize();
         Assert.assertEquals("Счетчик не совпадает", afterSize, beforeSize);
