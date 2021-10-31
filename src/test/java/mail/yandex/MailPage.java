@@ -1,7 +1,6 @@
 package mail.yandex;
 
 import io.qameta.allure.Step;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -70,51 +69,59 @@ public class MailPage {
 
     @Step
     //Ввод значения для фильтрации
-    public void fiterByTheme(String inputTheme) {
+    public MailPage fiterByTheme(String inputTheme) {
         filterMail.sendKeys(inputTheme);
         filterMail.submit();
+        return this;
     }
 
     @Step
     //Сортировка писем по "Входящим"
-    public void sortMail(){
+    public MailPage sortMail(){
         foldersMail.click();
         inputMail.click();
+        return this;
     }
 
     @Step
     //Нажатие кнопки "Написать
-    public void clickNew() {
+    public MailPage clickNew() {
         newMail.click();
+        return this;
     }
 
     @Step
-    public void sendAddress() {
+    public MailPage sendAddress() {
         addressMail.sendKeys(PropertyManager.getInstance().getAddressmail());
+        return this;
     }
 
     //Ввод темы сообщения
     @Step
-    public void sendTheme(String inputTheme){
+    public MailPage sendTheme(String inputTheme){
         themeMail.sendKeys(inputTheme);
+        return this;
     }
 
     //ввод текста сообщения
     @Step
-    public void sendText(String inputText){
+    public MailPage sendText(String inputText){
         textMail.sendKeys(inputText, getSizeMail());
+        return this;
     }
 
     @Step
     //Нажатие кнопки отправить
-    public void sendMessage(){
+    public MailPage sendMessage(){
         sendMail.click();
+        return this;
     }
 
     @Step
     //Вернуться во входящие
-    public void setReturnBack() {
+    public MailPage setReturnBack() {
         returnBack.click();
+        return this;
     }
 
 
