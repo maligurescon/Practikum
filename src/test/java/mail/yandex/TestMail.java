@@ -18,6 +18,7 @@ public class TestMail {
     public static LoginPage loginPage;
     public static MailPage mailPage;
     public static WebDriver driver;
+    static String theme = "Simbirsoft theme";
 
     @Before
     public void setup() {
@@ -40,49 +41,30 @@ public class TestMail {
     @Test
     public void sendingMessage() throws InterruptedException {
         loginPage.cliclMail();
-        loginPage.loginMail.sendKeys(PropertyManager.getInstance().getAddressmail());
+        loginPage.inputLogin();
         loginPage.clickSubmit();
-        loginPage.passwordMail.sendKeys(PropertyManager.getInstance().getPassword());
+        loginPage.inputPassword();
         loginPage.clickSubmit();
-        mailPage.filterMail.sendKeys("Simbirsoft theme");
-        mailPage.filterMail.submit();
+        mailPage.fiterByTheme(theme);
         mailPage.sortMail();
-        int beforeSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
-        Boolean runCycle = true;
-        var startTime = new Date().getTime();
-        while(runCycle) {           
-            int currentSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
-            if((new Date().getTime() - startTime) < 30 || currentSize != beforeSize ) {
-                runCycle = false;
-            }
-            beforeSize = currentSize;
-        }
+        var beforeSize = mailPage.getNumSize();
         mailPage.clickNew();
-        mailPage.addressMail.sendKeys(PropertyManager.getInstance().getAddressmail());
-        mailPage.themeMail.sendKeys("Simbirsoft theme");
-        mailPage.textMail.sendKeys("Найдено ", mailPage.getSizeMail());
+        mailPage.sendAddress();
+        mailPage.sendTheme(theme);
+        mailPage.sendText("Найдено ");
         mailPage.sendMessage();
 
         //Проверка изменения числа входящих писем на единицу
         mailPage.setReturnBack();
-        mailPage.filterMail.sendKeys("Simbirsoft theme");
-        mailPage.filterMail.submit();
-        mail.Page.sortMail();
-        int afterSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
-        runCycle = true;
-        while(runCycle) {
-            int currentSize = Integer.parseInt(mailPage.getSizeMail().split(" ")[0]);
-            if((new Date().getTime() - startTime) < 30 || currentSize != afterSize ) {
-                runCycle = false;
-            }
-            afterSize = currentSize;
-        }
+        mailPage.fiterByTheme("Simbirsoft theme");
+        mailPage.sortMail();
+        var afterSize = mailPage.getNumSize();
         beforeSize ++;
         Assert.assertEquals("Счетчик не совпадает", afterSize, beforeSize);
     }
 
-        @After
-        public void after() {
+    @After
+    public void after() {
         driver.quit();
 
     }
