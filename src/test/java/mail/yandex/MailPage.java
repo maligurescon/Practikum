@@ -16,7 +16,7 @@ public class MailPage {
 
     //Определение поля фильтрации сообщений
     @FindBy(xpath = "//input[@class='textinput__control']")
-    public WebElement filterMail;
+    private WebElement filterMail;
 
     //Определение кнопки фильтра "Папки"
     @FindBy(xpath = "//span[contains (text(),'Папки')]//ancestor::button")
@@ -36,15 +36,15 @@ public class MailPage {
 
     //Определение поля для ввода адресата
     @FindBy(xpath = "//div[contains(@class, 'tst-field-to')]//div[@is= 'x-bubbles']")
-    public WebElement addressMail;
+    private WebElement addressMail;
 
     //Определение поля для ввода темы сообщения
     @FindBy(xpath = "//input[@name= 'subject']")
-    public WebElement themeMail;
+    private WebElement themeMail;
 
     //Определение поля ввода сообщения
     @FindBy(xpath = "//div[@role = 'textbox']")
-    public WebElement textMail;
+    private WebElement textMail;
 
     //Определение поля написания письма
     @FindBy(xpath = "//div//[@class = 'composeReact__scrollable-content']")
@@ -63,10 +63,15 @@ public class MailPage {
         return countMale.getText();
     }
 
+    //Получение числа из количества сообщений
+    public Integer getNumSize(){
+        return Integer.parseInt(getSizeMail().split(" ")[0]);
+    }
+
     @Step
     //Ввод значения для фильтрации
-    public void fiterByTheme() {
-        filterMail.sendKeys("Simbirsoft theme");
+    public void fiterByTheme(String inputTheme) {
+        filterMail.sendKeys(inputTheme);
         filterMail.submit();
     }
 
@@ -84,6 +89,23 @@ public class MailPage {
     }
 
     @Step
+    public void sendAddress() {
+        addressMail.sendKeys(PropertyManager.getInstance().getAddressmail());
+    }
+
+    //Ввод темы сообщения
+    @Step
+    public void sendTheme(String inputTheme){
+        themeMail.sendKeys(inputTheme);
+    }
+
+    //ввод текста сообщения
+    @Step
+    public void sendText(String inputText){
+        textMail.sendKeys(inputText, getSizeMail());
+    }
+
+    @Step
     //Нажатие кнопки отправить
     public void sendMessage(){
         sendMail.click();
@@ -94,6 +116,8 @@ public class MailPage {
     public void setReturnBack() {
         returnBack.click();
     }
+
+
 
 
 }
