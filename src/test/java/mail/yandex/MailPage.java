@@ -80,6 +80,7 @@ public class MailPage {
     public MailPage sortMail(){
         foldersMail.click();
         inputMail.click();
+        driver.navigate().refresh();
         return this;
     }
 
