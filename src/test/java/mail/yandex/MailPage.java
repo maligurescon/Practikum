@@ -17,14 +17,6 @@ public class MailPage {
     @FindBy(xpath = "//input[@class='textinput__control']")
     private WebElement filterMail;
 
-    //Определение кнопки фильтра "Папки"
-    @FindBy(xpath = "//span[contains (text(),'Папки')]//ancestor::button")
-    private WebElement foldersMail;
-
-    //Определение кнопки "Входящие" в фильтрации поиска
-    @FindBy(xpath = "//span[@class = 'menu__text' and text()='Входящие']")
-    private WebElement inputMail;
-
     //Определение поля, в котором содержится инфомация по количеству сообщений
     @FindBy(xpath = "//span[@class = 'mail-MessagesSearchInfo-Title']//span")
     private WebElement countMale;
@@ -72,15 +64,6 @@ public class MailPage {
     public MailPage fiterByTheme(String inputTheme) {
         filterMail.sendKeys(inputTheme);
         filterMail.submit();
-        return this;
-    }
-
-    @Step
-    //Сортировка писем по "Входящим"
-    public MailPage sortMail(){
-        foldersMail.click();
-        inputMail.click();
-        driver.navigate().refresh();
         return this;
     }
 
